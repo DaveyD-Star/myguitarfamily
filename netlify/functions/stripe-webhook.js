@@ -23,16 +23,15 @@ exports.handler = async function (event) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "ddp62@hotmail.com",
-          to: process.env.ORDER_NOTIFICATION_EMAIL,
+          from: "onboarding@resend.dev",
+          to: "ddp62@hotmail.com",
           subject: "🎸 New Order Received - MyGuitarFamily",
           html: `
             <h2>New MyGuitarFamily Order</h2>
-            <p><strong>Name:</strong> ${orderDetails.customerName || "N/A"}</p>
-            <p><strong>Email:</strong> ${orderDetails.customerEmail || "N/A"}</p>
-            <p><strong>Payment Status:</strong> ${orderDetails.paymentStatus}</p>
-            <p><strong>Amount:</strong> $${(orderDetails.amountTotal / 100).toFixed(2)} ${orderDetails.currency?.toUpperCase()}</p>
-            <p><strong>Stripe Session ID:</strong> ${orderDetails.stripeSessionId}</p>
+            <p><strong>Name:</strong> ${orderDetails.customerName}</p>
+            <p><strong>Email:</strong> ${orderDetails.customerEmail}</p>
+            <p><strong>Amount:</strong> $${orderDetails.amountTotal / 100}</p>
+            <p><strong>Session ID:</strong> ${orderDetails.stripeSessionId}</p>
           `,
         }),
       });
