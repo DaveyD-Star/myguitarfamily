@@ -16,18 +16,31 @@ exports.handler = async function (event) {
 
       console.log("ORDER PAID:", JSON.stringify(orderDetails, null, 2));
 
-      // 👇 SEND EMAIL
-      await fetch("https://api.netlify.com/api/v1/mail/send", {
+      const emailResponse = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          to: "myguitarfamily@gmail.com",
-          subject: "New Order - MyGuitarFamily",
-          text: JSON.stringify(orderDetails, null, 2),
+          from: "orders@myguitarfamily.com",
+          to: process.env.ORDER_NOTIFICATION_EMAIL,
+          subject: "🎸 New Order Received - MyGuitarFamily",
+          html: `
+            <h2>New MyGuitarFamily Order</h2>
+            <p><strong>Name:</strong> ${orderDetails.customerName || "N/A"}</p>
+            <p><strong>Email:</strong> ${orderDetails.customerEmail || "N/A"}</p>
+            <p><strong>Payment Status:</strong> ${orderDetails.paymentStatus}</p>
+            <p><strong>Amount:</strong> $${(orderDetails.amountTotal / 100).toFixed(2)} ${orderDetails.currency?.toUpperCase()}</p>
+            <p><strong>Stripe Session ID:</strong> ${orderDetails.stripeSessionId}</p>
+          `,
         }),
       });
+
+      const emailResult = await emailResponse.text();
+
+      console.log("RESEND STATUS:", emailResponse.status);
+      console.log("RESEND RESPONSE:", emailResult);
     }
 
     return {
