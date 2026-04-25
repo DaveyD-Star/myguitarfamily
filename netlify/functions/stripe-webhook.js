@@ -23,7 +23,7 @@ exports.handler = async function (event) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "orders@myguitarfamily.com",
+          from: "onboarding@resend.dev",
           to: process.env.ORDER_NOTIFICATION_EMAIL,
           subject: "🎸 New Order Received - MyGuitarFamily",
           html: `
