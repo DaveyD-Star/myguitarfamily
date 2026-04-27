@@ -1743,6 +1743,23 @@ function resetAll() {
 }
 
 // ══════════════════════════════════════════════
+//  STICKER EXPORT
+// ══════════════════════════════════════════════
+
+function exportStickerImage() {
+  renderLightbox();
+
+  const canvas = document.getElementById('lbCanvas');
+
+  if (!canvas) {
+    console.error("Sticker canvas not found");
+    return null;
+  }
+
+  return canvas.toDataURL('image/png');
+}
+
+// ══════════════════════════════════════════════
 //  TOAST
 // ══════════════════════════════════════════════
 function showToast(msg, withUndo=false) {
