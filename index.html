@@ -1670,7 +1670,7 @@ function toggleDownload(cb) { dlAddon = cb.checked; calcPrice(); }
 // ══════════════════════════════════════════════
 //  CHECKOUT / ORDER
 // ══════════════════════════════════════════════
-function openCheckout() {
+async function openCheckout() {
 if (guitars.length === 0) {
 showToast('Add at least one guitar first!');
 return;
@@ -1679,12 +1679,38 @@ return;
 const img = exportStickerImage();
 console.log("STICKER IMAGE:", img ? img.substring(0, 100) : "NO IMAGE");
 
+const stickerImage = exportStickerImage();
+
+let stickerImageUrl = "";
+
+if (stickerImage) {
+  const uploadResponse = await fetch('/.netlify/functions/upload-sticker-image', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      imageData: stickerImage
+    })
+  });
+
+  const uploadData = await uploadResponse.json();
+
+  if (uploadData.imageUrl) {
+    stickerImageUrl = uploadData.imageUrl;
+  } else {
+    console.error(uploadData);
+    showToast('Sticker image upload failed.');
+    return;
+  }
+}
+
 fetch('/.netlify/functions/create-checkout-session', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
   },
-  body: JSON.stringify({
+  bbody: JSON.stringify({
   guitars: guitars.map(g => ({
     model: g.model,
     nickname: g.nickname,
@@ -1695,7 +1721,8 @@ fetch('/.netlify/functions/create-checkout-session', {
   caption: caption,
   stickerSize: document.getElementById('fSize')?.value || '',
   stickerQuantity: document.getElementById('fQty')?.value || '1',
-  hasDigital: dlAddon
+  hasDigital: dlAddon,
+  stickerImageUrl: stickerImageUrl
 })
 })
 .then(res => res.json())
