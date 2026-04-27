@@ -61,6 +61,15 @@ exports.handler = async function (event) {
             <p><strong>Quantity:</strong> ${metadata.stickerQuantity || "1"}</p>
             <p><strong>Digital Download:</strong> ${metadata.hasDigital === "true" ? "Yes" : "No"}</p>
 
+            <h3>Sticker Image</h3>
+            <p>
+              <a href="${metadata.stickerImageUrl}" target="_blank">
+                View / Download Sticker Image
+              </a>
+            </p>
+
+            <img src="${metadata.stickerImageUrl}" style="max-width:300px;border:1px solid #ccc;" />
+
             <h3>Guitars</h3>
             <ul>
               ${guitarListHtml}
