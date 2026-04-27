@@ -1777,16 +1777,38 @@ function resetAll() {
 // ══════════════════════════════════════════════
 
 function exportStickerImage() {
-  renderLightbox();
+  const size = document.getElementById('fSize')?.value || "6";
 
-  const canvas = document.getElementById('lbCanvas');
+  let width = 1800;
+  let height = 1200;
 
-  if (!canvas) {
-    console.error("Sticker canvas not found");
+  if (size === "4") {
+    width = 1200;
+    height = 900;
+  } else if (size === "6") {
+    width = 1800;
+    height = 1200;
+  } else if (size === "8") {
+    width = 2400;
+    height = 1800;
+  }
+
+  const previewCanvas = document.getElementById('lbCanvas');
+
+  if (!previewCanvas) {
+    console.error("Preview canvas not found");
     return null;
   }
 
-  return canvas.toDataURL('image/png');
+  const exportCanvas = document.createElement('canvas');
+  exportCanvas.width = width;
+  exportCanvas.height = height;
+
+  const ctx = exportCanvas.getContext('2d');
+
+  ctx.drawImage(previewCanvas, 0, 0, width, height);
+
+  return exportCanvas.toDataURL('image/png');
 }
 
 // ══════════════════════════════════════════════
