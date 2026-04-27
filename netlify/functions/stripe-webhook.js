@@ -5,6 +5,8 @@ exports.handler = async function (event) {
     if (stripeEvent.type === "checkout.session.completed") {
       const session = stripeEvent.data.object;
 
+      console.log("METADATA:", session.metadata);
+      
       const orderDetails = {
         stripeSessionId: session.id,
         paymentStatus: session.payment_status,
