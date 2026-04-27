@@ -1676,6 +1676,9 @@ showToast('Add at least one guitar first!');
 return;
 }
 
+const img = exportStickerImage();
+console.log("STICKER IMAGE:", img ? img.substring(0, 100) : "NO IMAGE");
+
 fetch('/.netlify/functions/create-checkout-session', {
   method: 'POST',
   headers: {
