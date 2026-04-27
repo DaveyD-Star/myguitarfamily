@@ -1676,19 +1676,31 @@ showToast('Add at least one guitar first!');
 return;
 }
 
-fetch('/.netlify/functions/create-checkout-session')
+fetch('/.netlify/functions/create-checkout-session', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    guitars: guitars,
+    caption: caption,
+    color: selColor,
+    quantity: guitars.length,
+    hasDigital: dlAddon
+  })
+})
 .then(res => res.json())
 .then(data => {
-if (data.url) {
-window.location.href = data.url;
-} else {
-showToast('Checkout failed.');
-console.error(data);
-}
+  if (data.url) {
+    window.location.href = data.url;
+  } else {
+    showToast('Checkout failed.');
+    console.error(data);
+  }
 })
 .catch(err => {
-showToast('Error starting checkout.');
-console.error(err);
+  showToast('Error starting checkout.');
+  console.error(err);
 });
 }
 
