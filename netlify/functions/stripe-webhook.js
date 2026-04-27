@@ -4,9 +4,20 @@ exports.handler = async function (event) {
 
     if (stripeEvent.type === "checkout.session.completed") {
       const session = stripeEvent.data.object;
+      const metadata = session.metadata || {};
+      const guitars = JSON.parse(metadata.guitars || "[]");
+      const guitarListHtml = guitars.length
+        ? guitars.map((g, i) => `
+            <li>
+              ${i + 1}. ${g.label || g.model || g.key}
+              ${g.nickname ? ` — "${g.nickname}"` : ""}
+              ${g.type ? ` (${g.type})` : ""}
+            </li>
+          `).join("")
+        : "<li>No guitar details found</li>";
 
       console.log("METADATA:", session.metadata);
-      
+
       const orderDetails = {
         stripeSessionId: session.id,
         paymentStatus: session.payment_status,
@@ -30,10 +41,22 @@ exports.handler = async function (event) {
           subject: "🎸 New Order Received - MyGuitarFamily",
           html: `
             <h2>New MyGuitarFamily Order</h2>
+
             <p><strong>Name:</strong> ${orderDetails.customerName}</p>
             <p><strong>Email:</strong> ${orderDetails.customerEmail}</p>
             <p><strong>Amount:</strong> $${orderDetails.amountTotal / 100}</p>
             <p><strong>Session ID:</strong> ${orderDetails.stripeSessionId}</p>
+
+            <h3>Sticker Details</h3>
+            <p><strong>Caption:</strong> ${metadata.caption || "None"}</p>
+            <p><strong>Sticker Size:</strong> ${metadata.stickerSize || "Not provided"}</p>
+            <p><strong>Quantity:</strong> ${metadata.stickerQuantity || "1"}</p>
+            <p><strong>Digital Download:</strong> ${metadata.hasDigital === "true" ? "Yes" : "No"}</p>
+
+            <h3>Guitars</h3>
+            <ul>
+              ${guitarListHtml}
+            </ul>
           `,
         }),
       });
