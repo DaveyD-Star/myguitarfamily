@@ -10,7 +10,7 @@ exports.handler = async function (event) {
     const stickerSize = data.stickerSize || '';
     const stickerQuantity = data.stickerQuantity || '1';
     const hasDigital = data.hasDigital || false;
-
+    const stickerImageUrl = data.stickerImageUrl || "";
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
@@ -33,6 +33,7 @@ exports.handler = async function (event) {
         stickerSize: stickerSize.toString(),
         stickerQuantity: stickerQuantity.toString(),
         hasDigital: hasDigital.toString(),
+        stickerImageUrl: stickerImageUrl,
         guitarSummary: guitars.map(g =>
           `${g.label || g.model || g.key}${g.nickname ? ` "${g.nickname}"` : ""}${g.type ? ` (${g.type})` : ""}`
         ).join(" | ").slice(0, 500),
