@@ -1,7 +1,7 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 
-exports.handler = async function () {
+exports.handler = async function (event) {
   try {
     const data = JSON.parse(event.body || '{}');
 
@@ -34,8 +34,8 @@ exports.handler = async function () {
         quantity: quantity.toString(),
         hasDigital: hasDigital.toString()
       },
-      success_url: "https://steady-sawine-124b76.netlify.app/success.html",
-      cancel_url: "https://steady-sawine-124b76.netlify.app/cancel.html",
+      success_url: "https://myguitarfamily.com/success.html",
+      cancel_url: "https://myguitarfamily.com/cancel.html",
     });
 
     return {
