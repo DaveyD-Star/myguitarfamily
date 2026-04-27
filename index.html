@@ -1777,27 +1777,17 @@ function resetAll() {
 // ══════════════════════════════════════════════
 
 function exportStickerImage() {
-  const size = document.getElementById('fSize')?.value || "6";
+  const size = document.getElementById('fSize')?.value || "3";
 
-  let width = 1800;
-  let height = 1200;
+  let width = 1200;
+  let height = 960;
 
-  if (size === "4") {
-    width = 1200;
-    height = 900;
-  } else if (size === "6") {
-    width = 1800;
+  if (size === "6") {
+    width = 1500;
     height = 1200;
-  } else if (size === "8") {
-    width = 2400;
-    height = 1800;
-  }
-
-  const previewCanvas = document.getElementById('lbCanvas');
-
-  if (!previewCanvas) {
-    console.error("Preview canvas not found");
-    return null;
+  } else if (size === "9") {
+    width = 1800;
+    height = 1440;
   }
 
   const exportCanvas = document.createElement('canvas');
@@ -1806,7 +1796,8 @@ function exportStickerImage() {
 
   const ctx = exportCanvas.getContext('2d');
 
-  ctx.drawImage(previewCanvas, 0, 0, width, height);
+  // Redraw clean sticker at higher resolution, without watermark
+  drawSticker(ctx, width, height, false, '');
 
   return exportCanvas.toDataURL('image/png');
 }
