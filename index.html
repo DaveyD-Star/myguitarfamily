@@ -1671,27 +1671,33 @@ function toggleDownload(cb) { dlAddon = cb.checked; calcPrice(); }
 //  CHECKOUT / ORDER
 // ══════════════════════════════════════════════
 function openCheckout() {
-  if(guitars.length===0){showToast('Add at least one guitar first!');return;}
-  document.getElementById('checkoutModal').classList.add('open');
+if (guitars.length === 0) {
+showToast('Add at least one guitar first!');
+return;
 }
-function closeCheckout() { document.getElementById('checkoutModal').classList.remove('open'); }
+
+fetch('/.netlify/functions/create-checkout-session')
+.then(res => res.json())
+.then(data => {
+if (data.url) {
+window.location.href = data.url;
+} else {
+showToast('Checkout failed.');
+console.error(data);
+}
+})
+.catch(err => {
+showToast('Error starting checkout.');
+console.error(err);
+});
+}
+
+function closeCheckout() {
+document.getElementById('checkoutModal').classList.remove('open');
+}
 
 function placeOrder() {
-  const email=document.getElementById('mEmail').value.trim();
-  const first=document.getElementById('mFirst').value.trim();
-  if(!first||!email){showToast('Please fill in your name and email');return;}
-  closeCheckout();
-  // Hide everything, show success
-  document.querySelector('.hero').style.display='none';
-  document.querySelector('.how-strip').style.display='none';
-  document.querySelector('.progress-bar').style.display='none';
-  document.querySelector('.builder-wrap').style.display='none';
-  document.querySelector('.site-footer').style.display='none';
-  const ord='#GF-'+Math.floor(10000+Math.random()*90000);
-  document.getElementById('orderBadge').textContent=ord;
-  document.getElementById('confirmEmail').textContent=email;
-  document.getElementById('successScreen').classList.add('show');
-  window.scrollTo({top:0,behavior:'smooth'});
+openCheckout();
 }
 
 function resetAll() {
