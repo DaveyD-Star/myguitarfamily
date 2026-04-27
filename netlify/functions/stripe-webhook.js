@@ -23,7 +23,7 @@ exports.handler = async function (event) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "orders@guitarfamily.com",
+          from: "orders@myguitarfamily.com",
           to: "ddp62@hotmail.com",
           subject: "🎸 New Order Received - MyGuitarFamily",
           html: `
