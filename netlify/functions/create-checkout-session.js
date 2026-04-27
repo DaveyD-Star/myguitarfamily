@@ -7,8 +7,8 @@ exports.handler = async function (event) {
 
     const guitars = data.guitars || [];
     const caption = data.caption || '';
-    const color = data.color || {};
-    const quantity = data.quantity || 1;
+    const stickerSize = data.stickerSize || '';
+    const stickerQuantity = data.stickerQuantity || '1';
     const hasDigital = data.hasDigital || false;
 
     const session = await stripe.checkout.sessions.create({
@@ -28,10 +28,10 @@ exports.handler = async function (event) {
       ],
 
        metadata: {
-        guitars: JSON.stringify(guitars),
-        caption: caption,
-        color: JSON.stringify(color),
-        quantity: quantity.toString(),
+        guitars: JSON.stringify(guitars).slice(0, 500),
+        caption: caption.slice(0, 500),
+        stickerSize: stickerSize.toString(),
+        stickerQuantity: stickerQuantity.toString(),
         hasDigital: hasDigital.toString()
       },
       success_url: "https://myguitarfamily.com/success.html",

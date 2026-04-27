@@ -1682,12 +1682,18 @@ fetch('/.netlify/functions/create-checkout-session', {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-    guitars: guitars,
-    caption: caption,
-    color: selColor,
-    quantity: guitars.length,
-    hasDigital: dlAddon
-  })
+  guitars: guitars.map(g => ({
+    model: g.model,
+    nickname: g.nickname,
+    type: g.type,
+    key: g.key,
+    label: GUITAR_META[g.key]?.label || g.key
+  })),
+  caption: caption,
+  stickerSize: document.getElementById('fSize')?.value || '',
+  stickerQuantity: document.getElementById('fQty')?.value || '1',
+  hasDigital: dlAddon
+})
 })
 .then(res => res.json())
 .then(data => {
