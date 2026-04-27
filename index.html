@@ -1710,7 +1710,7 @@ fetch('/.netlify/functions/create-checkout-session', {
   headers: {
     'Content-Type': 'application/json'
   },
-  bbody: JSON.stringify({
+  body: JSON.stringify({
   guitars: guitars.map(g => ({
     model: g.model,
     nickname: g.nickname,
