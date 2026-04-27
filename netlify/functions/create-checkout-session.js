@@ -1,7 +1,16 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
+
 exports.handler = async function () {
   try {
+    const data = JSON.parse(event.body || '{}');
+
+    const guitars = data.guitars || [];
+    const caption = data.caption || '';
+    const color = data.color || {};
+    const quantity = data.quantity || 1;
+    const hasDigital = data.hasDigital || false;
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
@@ -17,6 +26,14 @@ exports.handler = async function () {
           quantity: 1,
         },
       ],
+
+       metadata: {
+        guitars: JSON.stringify(guitars),
+        caption: caption,
+        color: JSON.stringify(color),
+        quantity: quantity.toString(),
+        hasDigital: hasDigital.toString()
+      },
       success_url: "https://steady-sawine-124b76.netlify.app/success.html",
       cancel_url: "https://steady-sawine-124b76.netlify.app/cancel.html",
     });
