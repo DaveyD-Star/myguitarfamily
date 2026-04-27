@@ -1119,9 +1119,15 @@ function layoutGuitars(W, H, captionH) {
   const bottomCount = rows === 1 ? 0 : n - topCount;
   const maxCols = Math.max(topCount, bottomCount || 0, 1);
 
-  let GW = Math.floor(usableW / maxCols) - (rows === 1 ? 6 : 10);
-  GW = Math.min(GW, rows === 1 ? 76 : 60);
-  GW = Math.max(GW, rows === 1 ? 44 : (n >= 12 ? 28 : 34));
+  const scale = W / 320;
+
+  let GW = Math.floor(usableW / maxCols) - ((rows === 1 ? 6 : 10) * scale);
+
+  const maxGW = (rows === 1 ? 76 : 60) * scale;
+  const minGW = (rows === 1 ? 44 : (n >= 12 ? 28 : 34)) * scale;
+
+  GW = Math.min(GW, maxGW);
+  GW = Math.max(GW, minGW);
 
   let GH = Math.round(GW * 1.72);
 
