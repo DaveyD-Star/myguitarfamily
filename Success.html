@@ -3,10 +3,98 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Order Successful</title>
+  <title>Order Confirmed | MyGuitarFamily</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #faf6ee;
+      color: #1a1008;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .card {
+      max-width: 640px;
+      margin: 0 auto;
+      background: #fff;
+      border: 3px solid #1a1008;
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 8px 8px 0 #e8830a;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .status {
+      display: inline-block;
+      background: #3d7a52;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-weight: bold;
+      margin: 16px 0;
+    }
+
+    .next {
+      text-align: left;
+      background: #faf6ee;
+      border-radius: 12px;
+      padding: 18px;
+      margin-top: 24px;
+    }
+
+    .next h3 {
+      margin-top: 0;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 24px;
+      background: #e8830a;
+      color: white;
+      text-decoration: none;
+      padding: 14px 22px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <h1>Payment Successful</h1>
-  <p>Your order was submitted successfully.</p>
+  <div class="card">
+    <h1>🎸 Order Confirmed!</h1>
+
+    <div class="status">Payment received</div>
+
+    <p>
+      Thank you for your MyGuitarFamily order. We’ve received your custom sticker request
+      and your design details have been captured.
+    </p>
+
+    <p>
+      A confirmation email has been sent with your order summary.
+    </p>
+
+    <div class="next">
+      <h3>What happens next</h3>
+      <p>🎨 Your custom guitar family sticker design is prepared.</p>
+      <p>🖨️ The final artwork is sent for printing.</p>
+      <p>📦 Your sticker is packaged and shipped.</p>
+    </div>
+
+    <p>
+      Typical turnaround: <strong>5–7 business days</strong>.
+    </p>
+
+    <a class="button" href="/">Build Another Sticker</a>
+  </div>
 </body>
 </html>
