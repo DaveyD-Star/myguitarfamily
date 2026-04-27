@@ -5,16 +5,24 @@ exports.handler = async function (event) {
     if (stripeEvent.type === "checkout.session.completed") {
       const session = stripeEvent.data.object;
       const metadata = session.metadata || {};
-      const guitars = JSON.parse(metadata.guitars || "[]");
+     let guitars = [];
+
+      try {
+        guitars = JSON.parse(metadata.guitars || "[]");
+      } catch (e) {
+        console.error("Could not parse guitar metadata:", metadata.guitars);
+        guitars = [];
+      }
+
       const guitarListHtml = guitars.length
         ? guitars.map((g, i) => `
             <li>
-              ${i + 1}. ${g.label || g.model || g.key}
+              ${i + 1}. ${g.label || g.model || g.key || "Unknown guitar"}
               ${g.nickname ? ` — "${g.nickname}"` : ""}
               ${g.type ? ` (${g.type})` : ""}
             </li>
           `).join("")
-        : "<li>No guitar details found</li>";
+        : `<li>${metadata.guitarSummary || "No guitar details found"}</li>`;
 
       console.log("METADATA:", session.metadata);
 

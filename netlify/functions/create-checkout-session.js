@@ -28,11 +28,14 @@ exports.handler = async function (event) {
       ],
 
        metadata: {
-        guitars: JSON.stringify(guitars).slice(0, 500),
+        guitars: JSON.stringify(guitars),
         caption: caption.slice(0, 500),
         stickerSize: stickerSize.toString(),
         stickerQuantity: stickerQuantity.toString(),
-        hasDigital: hasDigital.toString()
+        hasDigital: hasDigital.toString(),
+        guitarSummary: guitars.map(g =>
+          `${g.label || g.model || g.key}${g.nickname ? ` "${g.nickname}"` : ""}${g.type ? ` (${g.type})` : ""}`
+        ).join(" | ").slice(0, 500),
       },
       success_url: "https://myguitarfamily.com/success.html",
       cancel_url: "https://myguitarfamily.com/cancel.html",
