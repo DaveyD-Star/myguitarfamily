@@ -4,6 +4,7 @@ exports.handler = async function (event) {
 
     if (stripeEvent.type === "checkout.session.completed") {
       const session = stripeEvent.data.object;
+      const metadata = session.metadata || {};
       const guitarListHtml = metadata.guitarSummary
       ? metadata.guitarSummary
           .split(" | ")
