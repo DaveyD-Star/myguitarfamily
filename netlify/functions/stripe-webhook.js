@@ -4,15 +4,12 @@ exports.handler = async function (event) {
 
     if (stripeEvent.type === "checkout.session.completed") {
       const session = stripeEvent.data.object;
-      const metadata = session.metadata || {};
-     let guitars = [];
-
       const guitarListHtml = metadata.guitarSummary
-        ? metadata.guitarSummary
-            .split(" | ")
-            .map((item, i) => `<li>${i + 1}. ${item}</li>`)
-            .join("")
-        : "<li>No guitar details found</li>";
+      ? metadata.guitarSummary
+          .split(" | ")
+          .map((item, i) => `<li>${i + 1}. ${item}</li>`)
+          .join("")
+      : "<li>No guitar details found</li>";
 
       const guitarListHtml = guitars.length
         ? guitars.map((g, i) => `
