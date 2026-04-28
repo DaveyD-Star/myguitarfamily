@@ -7,12 +7,12 @@ exports.handler = async function (event) {
       const metadata = session.metadata || {};
      let guitars = [];
 
-      try {
-        guitars = JSON.parse(metadata.guitars || "[]");
-      } catch (e) {
-        console.error("Could not parse guitar metadata:", metadata.guitars);
-        guitars = [];
-      }
+      const guitarListHtml = metadata.guitarSummary
+        ? metadata.guitarSummary
+            .split(" | ")
+            .map((item, i) => `<li>${i + 1}. ${item}</li>`)
+            .join("")
+        : "<li>No guitar details found</li>";
 
       const guitarListHtml = guitars.length
         ? guitars.map((g, i) => `
