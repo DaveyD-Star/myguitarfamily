@@ -36,16 +36,16 @@ exports.handler = async function (event) {
       ],
 
        metadata: {
-        guitars: JSON.stringify(guitars),
+        guitars: JSON.stringify(guitars).replace(/"/g, "'").slice(0, 500),
         caption: (caption || '').replace(/"/g, "'").slice(0, 500),
-        stickerSize: stickerSize.toString(),
-        stickerQuantity: stickerQuantity.toString(),
-        hasDigital: hasDigital.toString(),
-        stickerImageUrl: stickerImageUrl,
+        stickerSize: String(stickerSize),
+        stickerQuantity: String(stickerQuantity),
+        hasDigital: String(hasDigital),
+        stickerImageUrl: stickerImageUrl || '',
         stickerType: stickerType,
         guitarSummary: guitars.map(g =>
-          `${g.label || g.model || g.key}${g.nickname ? ` "${g.nickname}"` : ""}${g.type ? ` (${g.type})` : ""}`
-        ).join(" | ").slice(0, 500),
+          `${g.label || g.model || g.key}${g.nickname ? ` '${g.nickname}'` : ""}${g.type ? ` (${g.type})` : ""}`
+        ).join(" | ").replace(/"/g, "'").slice(0, 500),
       },
       success_url: "https://myguitarfamily.com/success.html",
       cancel_url: "https://myguitarfamily.com/cancel.html",
@@ -56,9 +56,11 @@ exports.handler = async function (event) {
       body: JSON.stringify({ url: session.url }),
     };
   } catch (err) {
-    return {
-      statusCode: 500,
-      body: err.message,
-    };
-  }
+  console.error("Create checkout error:", err);
+
+  return {
+    statusCode: 500,
+    body: JSON.stringify({ error: err.message }),
+  };
+}
 };
