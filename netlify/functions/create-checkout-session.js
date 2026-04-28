@@ -1,29 +1,36 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-
 exports.handler = async function (event) {
   try {
-   const stickerQuantity = data.stickerQuantity || '1';
+    const data = JSON.parse(event.body || '{}');
 
-let basePrice = 2999;
-if (stickerSize === "4") basePrice = 2499;
-if (stickerSize === "6") basePrice = 2999;
-if (stickerSize === "8") basePrice = 3499;
+    const guitars = data.guitars || [];
+    const caption = data.caption || '';
+    const stickerSize = data.stickerSize || '6';
+    const stickerQuantity = parseInt(data.stickerQuantity || '1', 10);
+    const hasDigital = data.hasDigital || false;
+    const stickerImageUrl = data.stickerImageUrl || "";
 
-const session = await stripe.checkout.sessions.create({
-  payment_method_types: ["card"],
-  mode: "payment",
-  line_items: [
-    {
-      price_data: {
-        currency: "usd",
-        product_data: {
-          name: "Custom Guitar Family",
+    let basePrice = 2999;
+
+    if (stickerSize === "3" || stickerSize === "4") basePrice = 2499;
+    if (stickerSize === "6") basePrice = 2999;
+    if (stickerSize === "9" || stickerSize === "8") basePrice = 3499;
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      mode: "payment",
+      line_items: [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: "Custom Guitar Family",
+            },
+            unit_amount: basePrice,
+          },
+          quantity: stickerQuantity,
         },
-        unit_amount: basePrice,
-      },
-      quantity: parseInt(stickerQuantity, 10),
-    },
       ],
 
        metadata: {
