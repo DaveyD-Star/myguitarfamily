@@ -3,28 +3,27 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async function (event) {
   try {
-    const data = JSON.parse(event.body || '{}');
+   const stickerQuantity = data.stickerQuantity || '1';
 
-    const guitars = data.guitars || [];
-    const caption = data.caption || '';
-    const stickerSize = data.stickerSize || '';
-    const stickerQuantity = data.stickerQuantity || '1';
-    const hasDigital = data.hasDigital || false;
-    const stickerImageUrl = data.stickerImageUrl || "";
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      mode: "payment",
-      line_items: [
-        {
-          price_data: {
-            currency: "usd",
-            product_data: {
-              name: "Custom Guitar Family",
-            },
-            unit_amount: 2999, // $29.99
-          },
-          quantity: 1,
+let basePrice = 2999;
+if (stickerSize === "4") basePrice = 2499;
+if (stickerSize === "6") basePrice = 2999;
+if (stickerSize === "8") basePrice = 3499;
+
+const session = await stripe.checkout.sessions.create({
+  payment_method_types: ["card"],
+  mode: "payment",
+  line_items: [
+    {
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name: "Custom Guitar Family",
         },
+        unit_amount: basePrice,
+      },
+      quantity: parseInt(stickerQuantity, 10),
+    },
       ],
 
        metadata: {
