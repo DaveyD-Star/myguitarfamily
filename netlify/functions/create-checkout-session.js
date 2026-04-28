@@ -17,6 +17,7 @@ exports.handler = async function (event) {
     if (stickerSize === "3" || stickerSize === "4") basePrice = 2499;
     if (stickerSize === "6") basePrice = 2999;
     if (stickerSize === "9" || stickerSize === "8") basePrice = 3499;
+    
     if (stickerType === "inside-window") basePrice += 500;
 
     const session = await stripe.checkout.sessions.create({
