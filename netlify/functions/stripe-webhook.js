@@ -11,17 +11,7 @@ exports.handler = async function (event) {
           .join("")
       : "<li>No guitar details found</li>";
 
-      const guitarListHtml = guitars.length
-        ? guitars.map((g, i) => `
-            <li>
-              ${i + 1}. ${g.label || g.model || g.key || "Unknown guitar"}
-              ${g.nickname ? ` — "${g.nickname}"` : ""}
-              ${g.type ? ` (${g.type})` : ""}
-            </li>
-          `).join("")
-        : `<li>${metadata.guitarSummary || "No guitar details found"}</li>`;
-
-      console.log("METADATA:", session.metadata);
+            console.log("METADATA:", session.metadata);
 
       const orderDetails = {
         stripeSessionId: session.id,
