@@ -813,7 +813,32 @@ button.disabled {
               <span id="selGuitarType"></span>
             </div>
           </div>
+          <div class="frow single">
+            <div class="fgroup">
+              <label for="fStickerType">Sticker Type</label>
+              <select id="fStickerType" onchange="calcPrice()">
+                <option value="standard" selected>Standard Vinyl Sticker</option>
+                <option value="inside-window">Inside Window Sticker — viewed from outside (+$8)</option>
+              </select>
+            </div>
+          </div>
+          <div class="frow single">
+            <div class="fgroup">
+              <label for="fStickerType">Sticker Type</label>
+              <select id="fStickerType" onchange="calcPrice()">
+                <option value="standard">
+                  Standard — apply to outside surface
+                </option>
+                <option value="inside-window">
+                  Inside Window — apply inside glass, visible outside (+$5)
+                </option>
+              </select>
 
+              <p style="font-size:12px;color:#666;margin-top:6px;">
+                Standard sticks to the outside. Inside Window sticks inside glass and is viewed from the outside.
+              </p>
+            </div>
+          </div>
           <div class="frow">
             <div class="fgroup">
               <label for="fModel">Model / Custom Name</label>
@@ -1727,6 +1752,7 @@ fetch('/.netlify/functions/create-checkout-session', {
   caption: caption,
   stickerSize: document.getElementById('fSize')?.value || '',
   stickerQuantity: document.getElementById('fQty')?.value || '1',
+  stickerType: document.getElementById('fStickerType')?.value || 'standard',
   hasDigital: dlAddon,
   stickerImageUrl: stickerImageUrl
 })
