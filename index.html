@@ -813,32 +813,7 @@ button.disabled {
               <span id="selGuitarType"></span>
             </div>
           </div>
-          <div class="frow single">
-            <div class="fgroup">
-              <label for="fStickerType">Sticker Type</label>
-              <select id="fStickerType" onchange="calcPrice()">
-                <option value="standard" selected>Standard Vinyl Sticker</option>
-                <option value="inside-window">Inside Window Sticker — viewed from outside (+$8)</option>
-              </select>
-            </div>
-          </div>
-          <div class="frow single">
-            <div class="fgroup">
-              <label for="fStickerType">Sticker Type</label>
-              <select id="fStickerType" onchange="calcPrice()">
-                <option value="standard">
-                  Standard — apply to outside surface
-                </option>
-                <option value="inside-window">
-                  Inside Window — apply inside glass, visible outside (+$5)
-                </option>
-              </select>
-
-              <p style="font-size:12px;color:#666;margin-top:6px;">
-                Standard sticks to the outside. Inside Window sticks inside glass and is viewed from the outside.
-              </p>
-            </div>
-          </div>
+          
           <div class="frow">
             <div class="fgroup">
               <label for="fModel">Model / Custom Name</label>
@@ -917,10 +892,10 @@ button.disabled {
           </div>
         </div>
           <label for="fSize">Sticker Size</label>
-          <select id="fSize" onchange="handleSizeChange()">
-            <option value="3" selected>Medium — up to 5 guitars (+$3)</option>
-            <option value="6">Large — 6 to 11 guitars (+$6)</option>
-            <option value="9">XL — 12 to 17 guitars (+$9)</option>
+          <select id="fSize" onchange="calcPrice(); exportStickerImage();">
+            <option value="6">Small — up to 5 guitars / 6"</option>
+            <option value="9">Medium — 6 to 11 guitars / 9"</option>
+            <option value="12">Large — 12 to 18 guitars / 12"</option>
           </select>
           <div id="sizeRecommendation" style="margin-top:0.4rem;font-size:0.74rem;color:var(--muted);line-height:1.35;">
             Medium recommended for up to 5 guitars.
@@ -955,19 +930,18 @@ button.disabled {
     <div class="expand-hint"><span>👆 Tap to enlarge</span></div>
 
     <div class="pricing-card">
-      <div class="price-row"><span>Base sticker</span><span>$14.99</span></div>
+      <div class="price-row"><span>Base sticker</span><span>$29.99</span></div>
       <div class="price-row"><span id="pSizeLabel">Size (medium)</span><span id="pSize">+$3.00</span></div>
       <div class="price-row"><span>Qty</span><span id="pQty">×1</span></div>
-      <div class="price-row"><span>Shipping</span><span>$4.99</span></div>
-      <div class="price-row" id="pDlRow" style="display:none">
-        <span>Digital download <span class="price-addon">✓</span></span><span>+$2.99</span>
+          <div class="price-row" id="pDlRow" style="display:none">
+        <span>Digital download <span class="price-addon">✓</span></span><span>+$5.00</span>
       </div>
       <div class="price-row total"><span>Total</span><span id="pTotal">$22.98</span></div>
     </div>
 
     <div class="upsell">
       <input type="checkbox" id="cbDownload" onchange="toggleDownload(this)">
-      <label for="cbDownload">Add <strong>hi-res digital download (+$2.99)</strong> — watermarked preview now, clean file after payment</label>
+      Add <strong>hi-res digital download (+$5.00)</strong> — clean file after payment
     </div>
 
     <button class="checkout-btn" id="checkoutBtn" disabled onclick="openCheckout()">🛒 CHECKOUT</button>
@@ -1654,9 +1628,9 @@ function goStep(n) {
 //  PRICING / SIZE TIERS
 // ══════════════════════════════════════════════
 function getRecommendedSizeValue(count) {
-  if (count >= 12) return '9';
-  if (count >= 6) return '6';
-  return '3';
+  if (count >= 12) return '12';
+  if (count >= 6) return '9';
+  return '6';
 }
 
 function updateSizeTier() {
@@ -1666,50 +1640,55 @@ function updateSizeTier() {
   if (!sizeSel || !note) return;
 
   const recommended = getRecommendedSizeValue(count || 1);
+  sizeSel.value = recommended;
+
   const optionMeta = {
-    '3': { label: 'Medium', range: 'up to 5 guitars' },
-    '6': { label: 'Large', range: '6 to 11 guitars' },
-    '9': { label: 'XL', range: '12 to 17 guitars' }
+    '6': { label: 'Small / 6"', range: 'up to 5 guitars' },
+    '9': { label: 'Medium / 9"', range: '6 to 11 guitars' },
+    '12': { label: 'Large / 12"', range: '12 to 18 guitars' }
   };
 
-  [...sizeSel.options].forEach(opt => {
-    opt.disabled = parseFloat(opt.value) < parseFloat(recommended);
-  });
-
-  if (parseFloat(sizeSel.value) < parseFloat(recommended)) {
-    sizeSel.value = recommended;
-  }
-
   const meta = optionMeta[recommended];
+
   note.textContent = count === 0
-    ? 'Medium recommended for up to 5 guitars.'
+    ? 'Small / 6" recommended for up to 5 guitars.'
     : `${meta.label} is recommended for ${meta.range}.`;
 }
 
 function handleSizeChange() {
-  updateSizeTier();
   calcPrice();
 }
 
 function calcPrice() {
-  updateSizeTier();
+  const basePrices = {
+    '6': 29.99,
+    '9': 34.99,
+    '12': 39.99
+  };
 
-  const base = 14.99, ship = 4.99;
-  const size = parseFloat(document.getElementById('fSize')?.value || '3');
+  const size = document.getElementById('fSize')?.value || '6';
   const qty = parseInt(document.getElementById('fQty')?.value || '1');
   const disc = qty === 2 ? 2 : qty === 3 ? 5 : 0;
-  const dl = dlAddon ? 2.99 : 0;
-  const total = (base + size) * qty - disc + dl + ship;
+  const dl = dlAddon ? 5.00 : 0;
+  const total = (basePrices[size] * qty) - disc + dl;
 
-  const sizeNames = { 3: 'medium', 6: 'large', 9: 'XL' };
-  document.getElementById('pSizeLabel').textContent = 'Size (' + sizeNames[size] + ')';
-  document.getElementById('pSize').textContent = '+$' + size.toFixed(2);
+  const sizeNames = {
+    '6': 'Small / 6"',
+    '9': 'Medium / 9"',
+    '12': 'Large / 12"'
+  };
+
+  document.getElementById('pSizeLabel').textContent = 'Sticker (' + sizeNames[size] + ')';
+  document.getElementById('pSize').textContent = '$' + basePrices[size].toFixed(2);
   document.getElementById('pQty').textContent = '×' + qty;
   document.getElementById('pTotal').textContent = '$' + total.toFixed(2);
   document.getElementById('pDlRow').style.display = dlAddon ? 'flex' : 'none';
 }
-function toggleDownload(cb) { dlAddon = cb.checked; calcPrice(); }
 
+function toggleDownload(cb) {
+  dlAddon = cb.checked;
+  calcPrice();
+}
 // ══════════════════════════════════════════════
 //  CHECKOUT / ORDER
 // ══════════════════════════════════════════════
@@ -1826,16 +1805,16 @@ function exportStickerImage() {
   let width = 1500;
   let height = 1200;
 
-  if (size === "4") {
-    width = 1200;
-    height = 960;
-  } else if (size === "6") {
-    width = 1500;
-    height = 1200;
-  } else if (size === "8") {
-    width = 2100;
-    height = 1680;
-  }
+  if (size === "6") {
+  width = 1500;
+  height = 1200;
+} else if (size === "9") {
+  width = 2250;
+  height = 1800;
+} else if (size === "12") {
+  width = 3000;
+  height = 2400;
+}
 
   const exportCanvas = document.createElement('canvas');
   exportCanvas.width = width;
@@ -1871,17 +1850,6 @@ function showToast(msg, withUndo=false) {
 // ══════════════════════════════════════════════
 //  INIT
 // ══════════════════════════════════════════════
-buildPicker();
-updateSizeTier();
-calcPrice();
-renderPreview();
-updateViewportAddCta();
-updateCollectionCounter();
-  updateAddButtonState();
-</script>
-</body>
-</html
->
 buildPicker();
 updateSizeTier();
 calcPrice();
