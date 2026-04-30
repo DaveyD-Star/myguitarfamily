@@ -930,8 +930,13 @@ button.disabled {
     <div class="expand-hint"><span>👆 Tap to enlarge</span></div>
 
     <div class="pricing-card">
-      <div class="price-row"><span id="pSizeLabel">Size (medium)</span><span id="pSize">+$3.00</span></div>
-      <div class="price-row"><span>Qty</span><span id="pQty">×1</span></div>
+  <div class="price-row"><span id="pSizeLabel">Size (medium)</span><span id="pSize">+$3.00</span></div>
+
+  <div class="price-row" id="pTypeRow" style="display:none">
+    <span>Inside Window</span><span>+$5.00 each</span>
+  </div>
+
+  <div class="price-row"><span>Qty</span><span id="pQty">×1</span></div>
           <div class="price-row" id="pDlRow" style="display:none">
         <span>Digital download <span class="price-addon">✓</span></span><span>+$5.00</span>
       </div>
@@ -1659,7 +1664,6 @@ function handleSizeChange() {
 }
 
 function calcPrice() {
-  function calcPrice() {
   const basePrices = {
     '6': 29.99,
     '9': 34.99,
@@ -1682,19 +1686,20 @@ function calcPrice() {
     '6': 'Small / 6"',
     '9': 'Medium / 9"',
     '12': 'Large / 12"'
-  };
+  }
 
   document.getElementById('pSizeLabel').textContent = 'Sticker (' + sizeNames[size] + ')';
   document.getElementById('pSize').textContent = '$' + basePrices[size].toFixed(2);
   document.getElementById('pQty').textContent = '×' + qty;
   document.getElementById('pTotal').textContent = '$' + total.toFixed(2);
   document.getElementById('pDlRow').style.display = dlAddon ? 'flex' : 'none';
-}
+    }
 
 function toggleDownload(cb) {
   dlAddon = cb.checked;
   calcPrice();
 }
+
 // ══════════════════════════════════════════════
 //  CHECKOUT / ORDER
 // ══════════════════════════════════════════════
