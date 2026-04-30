@@ -38,25 +38,28 @@ exports.handler = async function (event) {
               name: "Custom Guitar Family",
             },
             unit_amount: totalAmount,
-            quantity: 1,
+          },
+          quantity: 1,
         },
       ],
 
-       metadata: {
+      metadata: {
         guitars: JSON.stringify(guitars).replace(/"/g, "'").slice(0, 500),
         caption: (caption || '').replace(/"/g, "'").slice(0, 500),
-        stickerSize: String(stickerSize),
-        stickerQuantity: String(stickerQuantity),
-        hasDigital: String(hasDigital),
-        stickerImageUrl: stickerImageUrl || '',
+        stickerSize: stickerSize.toString(),
+        stickerQuantity: stickerQuantity.toString(),
+        hasDigital: hasDigital.toString(),
+        stickerImageUrl: stickerImageUrl,
         stickerType: stickerType,
         guitarSummary: guitars.map(g =>
           `${g.label || g.model || g.key}${g.nickname ? ` '${g.nickname}'` : ""}${g.type ? ` (${g.type})` : ""}`
         ).join(" | ").replace(/"/g, "'").slice(0, 500),
       },
+
       success_url: "https://myguitarfamily.com/success.html",
       cancel_url: "https://myguitarfamily.com/cancel.html",
     });
+
 
     return {
       statusCode: 200,
