@@ -26,6 +26,22 @@ exports.handler = async function (event) {
     if (stickerQuantity === 3) discount = 1500;
 
     const totalAmount = (basePrice * stickerQuantity) - discount;
+    
+const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      mode: "payment",
+      line_items: [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: "Custom Guitar Family",
+            },
+            unit_amount: totalAmount,
+          },
+          quantity: 1,
+        },
+      ],
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
