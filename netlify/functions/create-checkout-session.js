@@ -19,13 +19,14 @@ exports.handler = async function (event) {
     if (stickerSize === "12") basePrice = 3999;
 
     if (stickerType === "inside-window") basePrice += 500;
-
+    
     let discount = 0;
 
     if (stickerQuantity === 2) discount = 750;
     if (stickerQuantity === 3) discount = 1500;
 
-    const totalAmount = (basePrice * stickerQuantity) - discount;
+    const digitalPremium = (hasDigital === true || hasDigital === "true") ? 500 : 0;
+    const totalAmount = (basePrice * stickerQuantity) - discount + digitalPremium;
     
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
