@@ -5,6 +5,15 @@ exports.handler = async function (event) {
     if (stripeEvent.type === "checkout.session.completed") {
       const session = stripeEvent.data.object;
       const metadata = session.metadata || {};
+      
+      const sizeMap = {
+        "6": 'Small (6")',
+        "9": 'Medium (9")',
+        "12": 'Large (12")'
+};
+
+      const stickerSizeLabel = sizeMap[metadata.stickerSize] || `${metadata.stickerSize}"`;
+
       const guitarListHtml = metadata.guitarSummary
       ? metadata.guitarSummary
           .split(" | ")
@@ -45,8 +54,9 @@ exports.handler = async function (event) {
 
             <h3>Sticker Details</h3>
             <p><strong>Caption:</strong> ${metadata.caption || "None"}</p>
-            <p><strong>Sticker Size:</strong> ${metadata.stickerSize || "Not provided"}</p>
+            <p><strong>Sticker Size:</strong> ${stickerSizeLabel}</p>
             <p><strong>Quantity:</strong> ${metadata.stickerQuantity || "1"}</p>
+            <p><strong>Number of Guitars:</strong> ${metadata.guitarSummary ? metadata.guitarSummary.split(" | ").length : "Not provided"}</p>
             <p><strong>Digital Download:</strong> ${metadata.hasDigital === "true" ? "Yes" : "No"}</p>
 
             <h3>Sticker Image</h3>
