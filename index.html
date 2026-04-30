@@ -813,7 +813,7 @@ button.disabled {
               <span id="selGuitarType"></span>
             </div>
           </div>
-          
+
           <div class="frow">
             <div class="fgroup">
               <label for="fModel">Model / Custom Name</label>
@@ -905,8 +905,8 @@ button.disabled {
           <label for="fQty">Quantity</label>
           <select id="fQty" onchange="calcPrice()">
             <option value="1">1 sticker</option>
-            <option value="2">2 stickers (save $2)</option>
-            <option value="3">3 stickers (save $5)</option>
+            <option value="2">2 stickers (save $7.50)</option>
+            <option value="3">3 stickers (save $15)</option>
           </select>
         </div>
       </div>
@@ -930,7 +930,6 @@ button.disabled {
     <div class="expand-hint"><span>👆 Tap to enlarge</span></div>
 
     <div class="pricing-card">
-      <div class="price-row"><span>Base sticker</span><span>$29.99</span></div>
       <div class="price-row"><span id="pSizeLabel">Size (medium)</span><span id="pSize">+$3.00</span></div>
       <div class="price-row"><span>Qty</span><span id="pQty">×1</span></div>
           <div class="price-row" id="pDlRow" style="display:none">
@@ -1668,7 +1667,7 @@ function calcPrice() {
 
   const size = document.getElementById('fSize')?.value || '6';
   const qty = parseInt(document.getElementById('fQty')?.value || '1');
-  const disc = qty === 2 ? 2 : qty === 3 ? 5 : 0;
+  const disc = qty === 2 ? 7.50 : qty === 3 ? 15.00 : 0;
   const dl = dlAddon ? 5.00 : 0;
   const total = (basePrices[size] * qty) - disc + dl;
 
