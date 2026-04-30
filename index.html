@@ -1669,6 +1669,7 @@ function calcPrice() {
   const qty = parseInt(document.getElementById('fQty')?.value || '1');
   const disc = qty === 2 ? 7.50 : qty === 3 ? 15.00 : 0;
   const dl = dlAddon ? 5.00 : 0;
+  console.log("Sticker type:", stickerType, "Premium:", typePremium);
   const stickerType = document.getElementById('fStickerType')?.value || 'standard';
   const typePremium = stickerType === 'inside-window' ? 5.00 : 0;
   const total = (basePrices[size] * qty) - disc + dl;
