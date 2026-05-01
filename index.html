@@ -317,6 +317,16 @@ body {
   display: none;
 }
 
+..viewport-add-cta {
+  position: fixed;
+  left: 50%;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(420px, calc(100vw - 24px));
+  z-index: 9999;
+  display: none;
+}
+
 .viewport-add-cta.show {
   display: block;
 }
@@ -326,40 +336,13 @@ body {
     bottom: calc(72px + env(safe-area-inset-bottom));
     width: calc(100vw - 20px);
   }
-
-button.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  pointer-events: none;
-  background: #999 !important;
 }
 
-.btn-primary {
-  margin-top: 0;
-  box-shadow: 0 12px 28px rgba(0,0,0,.18);
-  border: 2px solid rgba(255,255,255,.72);
-}
-.viewport-add-hint {
-  margin-top: 0.35rem;
-  text-align: center;
-  font-size: 0.74rem;
-  color: var(--muted);
-  background: rgba(250,246,238,.96);
-  border: 1px solid var(--border-light);
-  border-radius: 999px;
-  padding: 0.28rem 0.75rem;
-}
 @media (min-width: 821px) {
   .viewport-add-cta {
     left: calc((100vw - 380px) / 2 - 10px);
     transform: translateX(-50%);
     width: min(420px, calc(100vw - 430px));
-  }
-}
-@media (max-width: 820px) {
-  .viewport-add-cta {
-    bottom: 14px;
-    width: calc(100vw - 20px);
   }
 }
 
@@ -960,13 +943,6 @@ button.disabled {
   line-height: 1.45;
 }
 
-.trust-strip {
-  margin: 0 0 12px 0 !important;
-  font-size: 12px !important;
-  color: #9a8b7a !important;
-  line-height: 1.45 !important;
-}
-
 .mini-brand {
   margin-top: 8px;
 }
@@ -983,6 +959,55 @@ button.disabled {
   margin: 4px 0;
   font-size: 12px;
 }
+.checkout-btn {
+  margin: 14px auto 18px auto !important;
+  width: 100% !important;
+  max-width: 320px !important;
+  display: block !important;
+}
+
+.right-footer {
+  max-width: 320px;
+  margin: 18px auto 0 auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+  text-align: center;
+  color: #8a7560;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.trust-strip {
+  margin: 0 0 12px 0 !important;
+  font-size: 12px !important;
+  color: #9a8b7a !important;
+  line-height: 1.4 !important;
+}
+
+.mini-brand-logo {
+  font-family: "Permanent Marker", cursive;
+  color: var(--amber);
+  font-size: 20px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.mini-brand p {
+  margin: 4px 0;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.mini-contact {
+  margin-top: 8px !important;
+}
+
+.mini-contact a {
+  color: var(--amber);
+  font-weight: 600;
+  text-decoration: none;
+}
+
 </style>
 </head>
 <body>
@@ -1184,9 +1209,9 @@ button.disabled {
     <span id="pSize" style="font-weight:500;text-align:right;">$29.99</span>
   </div>
 
-  <div class="price-row" id="pTypeRow" style="display:none;justify-content:space-between;align-items:center;margin:8px 0;gap:12px;">
+ <div class="price-row" id="pTypeRow" style="display:none;">
     <span>Inside Window</span>
-    <span style="font-weight:500;text-align:right;">+$5.00 each</span>
+    <span>+$5.00 each</span>
   </div>
 
   <div class="price-row" style="display:flex;justify-content:space-between;align-items:center;margin:8px 0;gap:12px;">
@@ -1194,14 +1219,14 @@ button.disabled {
     <span id="pQty" style="font-weight:500;text-align:right;">×1</span>
   </div>
 
-  <div class="price-row" id="pDiscountRow" style="display:none;justify-content:space-between;align-items:center;margin:8px 0;gap:12px;">
+  <div class="price-row" id="pDiscountRow" style="display:none;">
     <span>Discount</span>
-    <span id="pDiscount" style="font-weight:500;text-align:right;">-$0.00</span>
+    <span id="pDiscount">-$0.00</span>
   </div>
 
-  <div class="price-row" id="pDlRow" style="display:none;justify-content:space-between;align-items:center;margin:8px 0;gap:12px;">
+  <div class="price-row" id="pDlRow" style="display:none;">
     <span>Digital download <span class="price-addon">✓</span></span>
-    <span style="font-weight:500;text-align:right;">+$5.00</span>
+    <span>+$5.00</span>
   </div>
 
   <div class="price-row total" style="
@@ -1257,9 +1282,6 @@ button.disabled {
 ">
   🛒 CHECKOUT
 
-  .checkout-btn {
-  margin-bottom: 18px !important;
-}
 </button>
 
 <!-- ═══ FOOTER ═══ -->
@@ -1941,19 +1963,28 @@ function calcPrice() {
   const size = document.getElementById('fSize')?.value || '6';
   const qty = parseInt(document.getElementById('fQty')?.value || '1');
   const disc = qty === 2 ? 7.50 : qty === 3 ? 15.00 : 0;
-  const dl = dlAddon ? 5.00 : 0;
-    const discountRow = document.getElementById('pDiscountRow');
+const dl = dlAddon ? 5.00 : 0;
 
-    if (disc > 0) {
-      discountRow.style.display = 'flex';
-      document.getElementById('pDiscount').textContent = '-$' + disc.toFixed(2);
-    } else {
-      discountRow.style.display = 'none';
-    }
-  const stickerType = document.getElementById('fStickerType')?.value || 'standard';
-  const typePremium = stickerType === 'inside-window' ? 5.00 : 0;
+const dlRow = document.getElementById('pDlRow');
+if (dlRow) {
+  dlRow.style.display = dlAddon ? 'flex' : 'none';
+}
 
-  console.log("Sticker type:", stickerType, "Premium:", typePremium);
+const discountRow = document.getElementById('pDiscountRow');
+if (discountRow) {
+  discountRow.style.display = disc > 0 ? 'flex' : 'none';
+  if (disc > 0) {
+    document.getElementById('pDiscount').textContent = '-$' + disc.toFixed(2);
+  }
+}
+
+const stickerType = document.getElementById('fStickerType')?.value || 'standard';
+const typePremium = stickerType === 'inside-window' ? 5.00 : 0;
+
+const typeRow = document.getElementById('pTypeRow');
+if (typeRow) {
+  typeRow.style.display = stickerType === 'inside-window' ? 'flex' : 'none';
+}
 
   const total = ((basePrices[size] + typePremium) * qty) - disc + dl;
 
