@@ -1459,7 +1459,6 @@ function selectShape(key) {
   document.getElementById('fModel').placeholder=m.name;
   document.getElementById('guitarDetails').classList.add('show');
   updateViewportAddCta();
-  document.querySelector('.viewport-add-cta')?.classList.add('show');
 }
 
 // Swatches
@@ -1541,7 +1540,6 @@ function addGuitar() {
   document.getElementById('fModel').value='';
   document.getElementById('fNick').value='';
   selKey=null;
-  document.querySelector('.viewport-add-cta')?.classList.remove('show');
   document.querySelectorAll('.pick-btn').forEach(b=>b.classList.remove('selected'));
   document.getElementById('guitarDetails').classList.remove('show');
   updateViewportAddCta();
@@ -1920,7 +1918,6 @@ buildPicker();
 updateSizeTier();
 calcPrice();
 renderPreview();
-document.querySelector('.viewport-add-cta')?.classList.add('show');
 updateViewportAddCta();
 updateCollectionCounter();
   updateAddButtonState();
