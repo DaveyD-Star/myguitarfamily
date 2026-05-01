@@ -537,12 +537,17 @@ button.disabled {
   width:100%; max-width:320px; margin-top:1.25rem;
 }
 .price-row {
-  display:flex; justify-content:space-between;
-  font-size:0.84rem; color:var(--muted); padding:0.28rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 6px 0;
 }
 .price-row.total {
-  border-top:1.5px solid var(--border); margin-top:0.4rem;
-  padding-top:0.6rem; font-weight:700; font-size:1rem; color:var(--ink);
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
 }
 .price-addon { font-size:0.7rem; color:var(--sage); font-weight:700; }
 
@@ -943,6 +948,11 @@ button.disabled {
       </div>
       <div class="price-row total"><span>Total</span><span id="pTotal">$22.98</span></div>
     </div>
+
+    <div class="price-row" id="pDiscountRow" style="display:none">
+      <span>Discount</span>
+      <span id="pDiscount">-$0.00</span>
+  </div>
 
     <div class="upsell">
       <input type="checkbox" id="cbDownload" onchange="toggleDownload(this)">
@@ -1675,7 +1685,14 @@ function calcPrice() {
   const qty = parseInt(document.getElementById('fQty')?.value || '1');
   const disc = qty === 2 ? 7.50 : qty === 3 ? 15.00 : 0;
   const dl = dlAddon ? 5.00 : 0;
+    const discountRow = document.getElementById('pDiscountRow');
 
+    if (disc > 0) {
+      discountRow.style.display = 'flex';
+      document.getElementById('pDiscount').textContent = '-$' + disc.toFixed(2);
+    } else {
+      discountRow.style.display = 'none';
+    }
   const stickerType = document.getElementById('fStickerType')?.value || 'standard';
   const typePremium = stickerType === 'inside-window' ? 5.00 : 0;
 
@@ -1684,9 +1701,9 @@ function calcPrice() {
   const total = ((basePrices[size] + typePremium) * qty) - disc + dl;
 
   const sizeNames = {
-    '6': 'Small / 6"',
-    '9': 'Medium / 9"',
-    '12': 'Large / 12"'
+    '6': '6"',
+    '9': '9"',
+    '12': '12"'
   }
 
   document.getElementById('pSizeLabel').textContent = 'Sticker (' + sizeNames[size] + ')';
