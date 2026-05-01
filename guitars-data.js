@@ -396,7 +396,7 @@ window.GUITAR_META = {
     "name": "Baby Blue",
     "label": "Strat Style Baby Blue",
     "type": "strat style",
-    "group": "STRAT Style"
+    "group": "Strat Style"
   },
   "strat_black": {
     "name": "Black",
@@ -444,7 +444,7 @@ window.GUITAR_META = {
     "name": "Pewter",
     "label": "Strat Style Pewter",
     "type": "strat style",
-    "group": "STRAT Style"
+    "group": "Strat Style"
 },
   "strat_powder_blue": {
     "name": "Powder Blue",
@@ -552,7 +552,7 @@ window.GUITAR_META = {
      "name": "Sunburst / White Guard",
      "label": "Tele Style Sunburst White Guard",
      "type": "tele style",
-     "group": "TELE Style" 
+     "group": "Tele Style" 
 },
   "tele_white": {
     "name": "White",
