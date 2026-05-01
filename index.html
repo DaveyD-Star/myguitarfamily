@@ -553,10 +553,36 @@ button.disabled {
 
 /* Download upsell */
 .upsell {
-  width:100%; max-width:320px; margin-top:0.85rem;
-  background:var(--sage-pale); border:1.5px solid #a8d4b8;
-  border-radius:10px; padding:0.85rem 1rem;
-  display:flex; align-items:flex-start; gap:0.75rem;
+  width:100%;
+  max-width:320px;
+  margin-top:0.85rem;
+  background:var(--sage-pale);
+  border:1.5px solid #a8d4b8;
+  border-radius:10px;
+  padding:0.65rem 0.8rem;
+  display:flex;
+  align-items:center;
+  gap:0.6rem;
+}
+
+.upsell input[type=checkbox] {
+  width:16px;
+  height:16px;
+  margin:0;
+  accent-color:var(--sage);
+  cursor:pointer;
+  flex-shrink:0;
+}
+
+.upsell label {
+  font-size:0.78rem;
+  line-height:1.25;
+  color:var(--ink);
+  cursor:pointer;
+}
+
+.upsell label strong {
+  color:var(--sage);
 }
 .upsell input[type=checkbox] {
   width:18px; height:18px; margin-top:1px;
