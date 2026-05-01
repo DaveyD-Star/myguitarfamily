@@ -54,10 +54,11 @@ exports.handler = async function (event) {
             <p><strong>Amount:</strong> $${orderDetails.amountTotal / 100}</p>
             <p><strong>Session ID:</strong> ${orderDetails.stripeSessionId}</p>
 
-            <h3>Sticker Details</h3>
+            <h3 style="margin-top:20px;">🎸 Your Sticker Details</h3>
+            <hr style="border:none;border-top:1px solid #eee;margin:10px 0;">
             <p><strong>Caption:</strong> ${metadata.caption || "None"}</p>
-            <p><strong>Sticker Size:</strong> ${stickerSizeLabel}</p>
-            <p><strong>Number of Guitars:</strong> ${metadata.guitarSummary ? metadata.guitarSummary.split(" | ").length : "Not provided"}</p>
+            <p><strong>Size:</strong> ${stickerSizeLabel}</p>
+            <p><strong>Guitars:</strong> ${numberOfGuitars}</p>
             <p><strong>Quantity:</strong> ${metadata.stickerQuantity || "1"}</p>
             <p><strong>Digital Download:</strong> ${metadata.hasDigital === "true" ? "Yes" : "No"}</p>
 
