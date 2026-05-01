@@ -13,12 +13,12 @@ window.GUITAR_IMAGES = {
   "lp_natural": "images/guitars/lp_natural.png",
   "lp_white": "images/guitars/lp_white.png",
   "lp_white_ii": "images/guitars/lp_white_ii.png",
-  "lh_sunburst": "images/lh_sunburst.png",
-  "ess_cherry": "images/ess_cherry.png",
-  "ess_black": "images/ess_black.png",
-  "ess_brown": "images/ess_brown.png",
-  "ess_tan": "images/ess_tan.png",
-  "ess_gold": "images/ess_gold.png",
+  "lh_sunburst": "images/guitars/lh_sunburst.png",
+  "ess_cherry": "images/guitars/ess_cherry.png",
+  "ess_black": "images/guitars/ess_black.png",
+  "ess_brown": "images/guitars/ess_brown.png",
+  "ess_tan": "images/guitars/ess_tan.png",
+  "ess_gold": "images/guitars/ess_gold.png",
   "exp_black": "images/guitars/exp_black.png",
   "exp_blue": "images/guitars/exp_blue.png",
   "exp_burgundy": "images/guitars/exp_burgundy.png",
@@ -52,13 +52,13 @@ window.GUITAR_IMAGES = {
   "sg_white": "images/guitars/sg_white.png",
   "strat_black": "images/guitars/strat_black.png",
   "strat_black_ii": "images/guitars/strat_black_ii.png",
-  "strat_baby_blue": "images/strat_byblue.png",
+  "strat_baby_blue": "images/guitars/strat_byblue.png",
   "strat_blue": "images/guitars/strat_blue.png",
   "strat_brown": "images/guitars/strat_brown.png",
   "strat_cream": "images/guitars/strat_cream.png",
   "strat_cream_ii": "images/guitars/strat_cream_ii.png",
   "strat_green": "images/guitars/strat_green.png",
-  "strat_pewter": "images/strat_pewter.png",
+  "strat_pewter": "images/guitars/strat_pewter.png",
   "strat_powder_blue": "images/guitars/strat_powder_blue.png",
   "strat_red": "images/guitars/strat_red.png",
   "strat_sunburst": "images/guitars/strat_sunburst.png",
@@ -76,7 +76,7 @@ window.GUITAR_IMAGES = {
   "tele_red": "images/guitars/tele_red.png",
   "tele_sunburst": "images/guitars/tele_sunburst.png",
   "tele_sunburst_tortoise": "images/guitars/tele_sunburst_tortoise.png",
-  "tele_sunburst_white_guard": "images/tele_sunburst_white.png",
+  "tele_sunburst_white_guard": "images/guitars/tele_sunburst_white.png",
   "tele_white": "images/guitars/tele_white.png",
   "tele_white_face": "images/guitars/tele_white_face.png",
   "v_black": "images/guitars/v_black.png",
@@ -88,7 +88,7 @@ window.GUITAR_IMAGES = {
   "v_sunburst": "images/guitars/v_sunburst.png",
   "v_white": "images/guitars/v_white.png",
   "mrtn_natural": "images/guitars/mrtn_natural.png",
-  "cv_black": "images/cv_black.png"
+  "cv_black": "images/guitars/cv_black.png"
 };
 
 window.GUITAR_META = {
@@ -174,37 +174,37 @@ window.GUITAR_META = {
   "name": "Sunburst",
   "label": "LH Style Sunburst",
   "type": "LH style",
-  "group": "LP STYLE"
+  "group": "LP Style"
 },
  "ess_cherry": {
   "name": "Cherry",
   "label": "ESS Style Cherry",
   "type": "ess style",
-  "group": "ESS STYLE"
+  "group": "ESS Style"
 },
 "ess_black": {
   "name": "Black",
   "label": "ESS Style Black",
   "type": "ess style",
-  "group": "ESS STYLE"
+  "group": "ESS Style"
 },
 "ess_brown": {
   "name": "Brown",
   "label": "ESS Style Brown",
   "type": "ess style",
-  "group": "ESS STYLE"
+  "group": "ESS Style"
 },
 "ess_tan": {
   "name": "Tan",
   "label": "ESS Style Tan",
   "type": "ess style",
-  "group": "ESS STYLE"
+  "group": "ESS Style"
 },
 "ess_gold": {
   "name": "Gold",
   "label": "ESS Style Gold",
   "type": "ess style",
-  "group": "ESS STYLE"
+  "group": "ESS Style"
 },
   "exp_black": {
     "name": "Black",
@@ -396,7 +396,7 @@ window.GUITAR_META = {
     "name": "Baby Blue",
     "label": "Strat Style Baby Blue",
     "type": "strat style",
-    "group": "STRAT STYLE"
+    "group": "STRAT Style"
   },
   "strat_black": {
     "name": "Black",
@@ -444,7 +444,7 @@ window.GUITAR_META = {
     "name": "Pewter",
     "label": "Strat Style Pewter",
     "type": "strat style",
-    "group": "STRAT STYLE"
+    "group": "STRAT Style"
 },
   "strat_powder_blue": {
     "name": "Powder Blue",
@@ -552,7 +552,7 @@ window.GUITAR_META = {
      "name": "Sunburst / White Guard",
      "label": "Tele Style Sunburst White Guard",
      "type": "tele style",
-     "group": "TELE STYLE" 
+     "group": "TELE Style" 
 },
   "tele_white": {
     "name": "White",
