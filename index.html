@@ -1199,16 +1199,14 @@ function layoutGuitars(W, H, captionH) {
 
   const rowGap = rows === 2 ? Math.max(8, Math.round(GH * 0.08)) : 0;
   const totalBlockH = rows === 2 ? (GH * 2 + rowGap) : GH;
-  const startY = margin + (usableH - totalBlockH) / 2;
-
+  
   function makeRow(count, rowY) {
     if (!count) return [];
     const desiredSpacing = count <= 2 ? GW * 0.84 : count <= 5 ? GW * 0.96 : GW * 1.02;
     const maxSpread = Math.max(0, (W - GW - 18) / Math.max(count - 1, 1));
     const spacing = count === 1 ? 0 : Math.min(desiredSpacing, maxSpread);
     const totalW = spacing * (count - 1);
-    const cx0 = margin + (usableW / 2) - (totalW / 2);
-
+    const cx0 = W / 2 - totalW / 2;
     return Array.from({ length: count }, (_, i) => {
       const t = count > 1 ? (i - (count - 1) / 2) / ((count - 1) / 2) : 0;
       const arcDepth = count > 1 ? Math.min(rows === 1 ? 18 : 10, count * 3) : 0;
@@ -1239,7 +1237,10 @@ function drawArcText(ctx, text, centerX, baseY, width, curveHeight) {
   const metrics = chars.map(ch => Math.max(ctx.measureText(ch).width, 6));
   const totalTextW = metrics.reduce((a, b) => a + b, 0);
   const span = Math.max(totalTextW + 10, Math.min(width, totalTextW + 30));
-  let cursor = -totalTextW / 2;
+
+  const totalBlockH = rows === 2 ? (GH * 2 + rowGap) : GH;
+  const startY = previewTopPad + Math.max(0, Math.floor((previewH - totalBlockH) / 2));
+    let cursor = -totalTextW / 2;
 
   for (let i = 0; i < chars.length; i++) {
     const charW = metrics[i];
@@ -1864,11 +1865,6 @@ function exportStickerImage() {
   const H = 2550;   // height (8.5" at 300 DPI)
   let width = 1500;
   let height = 1200;
-
-  const margin = 200;
-
-  const usableW = W - (margin * 2);
-  const usableH = H - (margin * 2);
 
   if (size === "6") {
   width = 1500;
