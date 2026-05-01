@@ -310,17 +310,22 @@ body {
 .viewport-add-cta {
   position: fixed;
   left: 50%;
-  bottom: 18px;
+  bottom: max(18px, env(safe-area-inset-bottom));
   transform: translateX(-50%);
   width: min(420px, calc(100vw - 24px));
-  z-index: 500;
+  z-index: 9999;
   display: none;
 }
+
 .viewport-add-cta.show {
   display: block;
 }
-.viewport-add-cta .btn-primary {
-}
+
+@media (max-width: 820px) {
+  .viewport-add-cta {
+    bottom: calc(72px + env(safe-area-inset-bottom));
+    width: calc(100vw - 20px);
+  }
 
 button.disabled {
   opacity: 0.5;
