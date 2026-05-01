@@ -788,7 +788,201 @@ button.disabled {
     position: relative;
     opacity: 0.85;
   }
+/* FORCE CLEAN RIGHT-SIDE PRICING PANEL */
+.preview-col .pricing-card {
+  background: #fff !important;
+  border: 2px solid var(--border) !important;
+  border-radius: 14px !important;
+  padding: 16px 20px !important;
+  margin: 16px auto 0 auto !important;
+  width: 100% !important;
+  max-width: 320px !important;
+  box-sizing: border-box !important;
+  display: block !important;
+}
 
+.preview-col .price-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin: 8px 0 !important;
+  font-size: 15px !important;
+  line-height: 1.25 !important;
+}
+
+.preview-col .price-row span:first-child {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+.preview-col .price-row span:last-child {
+  flex-shrink: 0 !important;
+  text-align: right !important;
+  font-weight: 500 !important;
+}
+
+.preview-col .price-row.total {
+  border-top: 1px solid var(--border-light) !important;
+  padding-top: 12px !important;
+  margin-top: 12px !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+}
+
+.preview-col .upsell {
+  width: 100% !important;
+  max-width: 320px !important;
+  margin: 14px auto 0 auto !important;
+  background: var(--sage-pale) !important;
+  border: 1.5px solid #a8d4b8 !important;
+  border-radius: 10px !important;
+  padding: 10px 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  box-sizing: border-box !important;
+}
+
+.preview-col .upsell input {
+  width: 16px !important;
+  height: 16px !important;
+  margin: 0 !important;
+  flex-shrink: 0 !important;
+}
+
+.preview-col .upsell label {
+  font-size: 14px !important;
+  line-height: 1.25 !important;
+  cursor: pointer !important;
+}
+
+.preview-col .upsell-note {
+  max-width: 320px !important;
+  margin: 6px auto 14px auto !important;
+  font-size: 12px !important;
+  color: #777 !important;
+  line-height: 1.3 !important;
+}
+
+.preview-col .checkout-btn {
+  width: 100% !important;
+  max-width: 320px !important;
+  margin: 0 auto !important;
+  display: block !important;
+}
+/* FINAL PRICING CARD OVERRIDE */
+.pricing-card {
+  background: #fff !important;
+  border: 2px solid var(--border) !important;
+  border-radius: 14px !important;
+  padding: 16px 20px !important;
+  margin: 16px auto 0 auto !important;
+  width: 100% !important;
+  max-width: 320px !important;
+  box-sizing: border-box !important;
+}
+
+.pricing-card > div {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin: 8px 0 !important;
+  font-size: 15px !important;
+  line-height: 1.25 !important;
+}
+
+.pricing-card > div span:first-child {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+.pricing-card > div span:last-child {
+  flex-shrink: 0 !important;
+  text-align: right !important;
+  font-weight: 500 !important;
+}
+
+.pricing-card > div.total,
+.pricing-card .price-row.total {
+  border-top: 1px solid var(--border-light) !important;
+  padding-top: 12px !important;
+  margin-top: 12px !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+}
+
+.pricing-card > div.total span,
+.pricing-card .price-row.total span {
+  font-weight: 700 !important;
+}
+/* RIGHT PANEL FINAL SPACING POLISH */
+.preview-panel,
+.preview-col,
+.preview-column {
+  box-sizing: border-box;
+}
+
+.pricing-card {
+  margin-top: 18px !important;
+  margin-bottom: 14px !important;
+}
+
+.upsell {
+  margin-top: 12px !important;
+  margin-bottom: 4px !important;
+}
+
+.upsell-note {
+  max-width: 320px !important;
+  margin: 6px auto 14px auto !important;
+  font-size: 12px !important;
+  color: #7b6b5c !important;
+  line-height: 1.35 !important;
+}
+
+.checkout-btn {
+  margin-top: 12px !important;
+  margin-bottom: 18px !important;
+  height: 48px !important;
+  border-radius: 10px !important;
+}
+
+.right-footer {
+  max-width: 320px;
+  margin: 20px auto 0 auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+  text-align: center;
+  color: #8a7560;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.trust-strip {
+  margin: 0 0 12px 0 !important;
+  font-size: 12px !important;
+  color: #9a8b7a !important;
+  line-height: 1.45 !important;
+}
+
+.mini-brand {
+  margin-top: 8px;
+}
+
+.mini-brand strong {
+  display: block;
+  font-family: "Permanent Marker", cursive;
+  color: var(--amber);
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.mini-brand p {
+  margin: 4px 0;
+  font-size: 12px;
+}
 </style>
 </head>
 <body>
@@ -975,114 +1169,113 @@ button.disabled {
     </div>
     <div class="expand-hint"><span>👆 Tap to enlarge</span></div>
 
-   <div class="pricing-card">
-  <div class="price-row">
+  <div class="pricing-card" style="
+  background:#fff;
+  border:2px solid #dfc9a8;
+  border-radius:14px;
+  padding:16px 20px;
+  margin:16px auto 0 auto;
+  width:100%;
+  max-width:320px;
+  box-sizing:border-box;
+">
+  <div class="price-row" style="display:flex;justify-content:space-between;align-items:center;margin:8px 0;gap:12px;">
     <span id="pSizeLabel">Sticker (6")</span>
-    <span id="pSize">$29.99</span>
+    <span id="pSize" style="font-weight:500;text-align:right;">$29.99</span>
   </div>
 
-  <div class="price-row" id="pTypeRow" style="display:none">
+  <div class="price-row" id="pTypeRow" style="display:none;justify-content:space-between;align-items:center;margin:8px 0;gap:12px;">
     <span>Inside Window</span>
-    <span>+$5.00 each</span>
+    <span style="font-weight:500;text-align:right;">+$5.00 each</span>
   </div>
 
-  <div class="price-row">
+  <div class="price-row" style="display:flex;justify-content:space-between;align-items:center;margin:8px 0;gap:12px;">
     <span>Qty</span>
-    <span id="pQty">×1</span>
+    <span id="pQty" style="font-weight:500;text-align:right;">×1</span>
   </div>
 
-  <div class="price-row" id="pDiscountRow" style="display:none">
+  <div class="price-row" id="pDiscountRow" style="display:none;justify-content:space-between;align-items:center;margin:8px 0;gap:12px;">
     <span>Discount</span>
-    <span id="pDiscount">-$0.00</span>
+    <span id="pDiscount" style="font-weight:500;text-align:right;">-$0.00</span>
   </div>
 
-  <div class="price-row" id="pDlRow" style="display:none">
+  <div class="price-row" id="pDlRow" style="display:none;justify-content:space-between;align-items:center;margin:8px 0;gap:12px;">
     <span>Digital download <span class="price-addon">✓</span></span>
-    <span>+$5.00</span>
+    <span style="font-weight:500;text-align:right;">+$5.00</span>
   </div>
 
-  <div class="price-row total">
+  <div class="price-row total" style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    border-top:1px solid #ede4d3;
+    padding-top:12px;
+    margin-top:12px;
+    font-weight:700;
+    font-size:18px;
+  ">
     <span>Total</span>
     <span id="pTotal">$29.99</span>
   </div>
 </div>
 
-<div class="upsell">
-  <input type="checkbox" id="cbDownload" onchange="toggleDownload(this)">
-  <label for="cbDownload">
+<div class="upsell" style="
+  width:100%;
+  max-width:320px;
+  margin:14px auto 0 auto;
+  background:#edf7f1;
+  border:1.5px solid #a8d4b8;
+  border-radius:10px;
+  padding:10px 12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  box-sizing:border-box;
+">
+  <input type="checkbox" id="cbDownload" onchange="toggleDownload(this)" style="width:16px;height:16px;margin:0;flex-shrink:0;">
+  <label for="cbDownload" style="font-size:14px;line-height:1.25;cursor:pointer;">
     Add <strong>hi-res digital download (+$5.00)</strong>
   </label>
 </div>
 
-<p class="upsell-note">
+<p class="upsell-note" style="
+  max-width:320px;
+  margin:6px auto 14px auto;
+  font-size:12px;
+  color:#777;
+  line-height:1.3;
+">
   Watermark-free file delivered after purchase
 </p>
 
-<button class="checkout-btn" id="checkoutBtn" disabled onclick="openCheckout()">🛒 CHECKOUT</button>
+<button class="checkout-btn" id="checkoutBtn" disabled onclick="openCheckout()" style="
+  width:100%;
+  max-width:320px;
+  margin:0 auto;
+  display:block;
+">
+  🛒 CHECKOUT
 
-<div class="trust-strip">
-  Weatherproof vinyl · UV resistant · Made to order<br>
-  Designed &amp; shipped by GuitarFam 🎸
-</div>
-
-</div><!-- /builder-wrap -->
-
-<!-- ═══ LIGHTBOX ═══ -->
-<div class="lightbox" id="lightbox" onclick="lbClickOut(event)">
-  <div class="lb-inner">
-    <div class="lb-frame">
-      <canvas id="lbCanvas"></canvas>
-    </div>
-    <div class="lb-hint">TAP OUTSIDE OR ✕ TO CLOSE</div>
-    <button class="lb-close" onclick="closeLightbox()">✕</button>
-  </div>
-</div>
-
-<!-- ═══ CHECKOUT MODAL ═══ -->
-<div class="modal-overlay" id="checkoutModal">
-  <div class="modal">
-    <h2>Complete Your Order</h2>
-    <p>Fill in your details and we'll get your Guitar Family designed, printed, and shipped!</p>
-    <div class="modal-row">
-      <div class="fgroup"><label>First Name</label><input type="text" id="mFirst" placeholder="Jimi"></div>
-      <div class="fgroup"><label>Last Name</label><input type="text" id="mLast" placeholder="Hendrix"></div>
-    </div>
-    <div class="fgroup" style="margin-top:.75rem"><label>Email</label><input type="email" id="mEmail" placeholder="you@example.com"></div>
-    <div class="fgroup" style="margin-top:.75rem"><label>Shipping Address</label><textarea id="mAddr" rows="3" placeholder="123 Main St, City, State, ZIP" style="resize:vertical"></textarea></div>
-    <div class="stripe-note">💳 Secure payment via Stripe — coming soon. This is a prototype; no real charges will be made.</div>
-    <div class="modal-actions">
-      <button class="btn-secondary" onclick="closeCheckout()">Cancel</button>
-      <button class="btn-primary" style="margin-top:0" onclick="placeOrder()">Place Order 🎸</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ SUCCESS ═══ -->
-<div class="success-screen" id="successScreen">
-  <div class="success-icon">🎸🎸🎸</div>
-  <h2>Order Placed!</h2>
-  <p>Your Guitar Family sticker is heading into production. We'll custom-design it with your guitars in your chosen colors.</p>
-  <div class="order-badge" id="orderBadge">#GF-00000</div>
-  <p>Confirmation sent to <strong id="confirmEmail"></strong><br>Ships in 5–7 business days 🚚</p>
-  <div class="next-steps">
-    <h4>What happens next</h4>
-    <div class="next-step-item"><span class="ns-icon">🎨</span><span>Our designer creates your custom sticker layout with your exact guitars and colors</span></div>
-    <div class="next-step-item"><span class="ns-icon">🖨️</span><span>Printed on high-quality weatherproof vinyl with UV protection</span></div>
-    <div class="next-step-item"><span class="ns-icon">📦</span><span>Packaged and shipped to you — usually within 5–7 business days</span></div>
-  </div>
-  <button class="btn-primary" style="max-width:260px;margin:2rem auto 0;display:flex" onclick="resetAll()">🔄 Build Another Sticker</button>
-</div>
+  .checkout-btn {
+  margin-bottom: 18px !important;
+}
+</button>
 
 <!-- ═══ FOOTER ═══ -->
-<footer class="site-footer">
-  <a href="#top" class="logo">Guitar<span>Fam</span> 🎸</a>
-  <p>Custom guitar family stickers for collectors &amp; tone chasers.<br>
-  Questions? <a href="/cdn-cgi/l/email-protection#48202d242427082f3d213c293a2e2925662b2725"><span class="__cf_email__" data-cfemail="751d1019191a3512001c0114071314185b161a18">[email&#160;protected]</span></a> · Made with ❤️ for guitar nerds</p>
-</footer>
+<div class="right-footer">
+  <div class="trust-strip">
+    Weatherproof vinyl · UV resistant · Made to order<br>
+    Designed &amp; shipped by GuitarFam 🎸
+  </div>
 
-<div class="viewport-add-cta" id="viewportAddCta">
-  <button class="btn-primary" onclick="addGuitar()">🎸 Add to My Collection</button>
-  <div class="viewport-add-hint">Double-click also works.</div>
+  <div class="mini-brand">
+    <div class="mini-brand-logo">GuitarFam 🎸</div>
+    <p>Custom guitar family stickers for collectors &amp; tone chasers.</p>
+    <p class="mini-contact">
+      Questions? <a href="mailto:orders@myguitarfamily.com">orders@myguitarfamily.com</a>
+    </p>
+  </div>
 </div>
 
 <!-- ═══ TOAST ═══ -->
