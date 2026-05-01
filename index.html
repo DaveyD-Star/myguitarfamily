@@ -1199,7 +1199,7 @@ function layoutGuitars(W, H, captionH) {
 
   const rowGap = rows === 2 ? Math.max(8, Math.round(GH * 0.08)) : 0;
   const totalBlockH = rows === 2 ? (GH * 2 + rowGap) : GH;
-  const startY = previewTopPad + Math.max(0, Math.floor((previewH - totalBlockH) / 2));
+  const startY = margin + (usableH - totalBlockH) / 2;
 
   function makeRow(count, rowY) {
     if (!count) return [];
@@ -1207,7 +1207,7 @@ function layoutGuitars(W, H, captionH) {
     const maxSpread = Math.max(0, (W - GW - 18) / Math.max(count - 1, 1));
     const spacing = count === 1 ? 0 : Math.min(desiredSpacing, maxSpread);
     const totalW = spacing * (count - 1);
-    const cx0 = W / 2 - totalW / 2;
+    const cx0 = margin + (usableW / 2) - (totalW / 2);
 
     return Array.from({ length: count }, (_, i) => {
       const t = count > 1 ? (i - (count - 1) / 2) / ((count - 1) / 2) : 0;
@@ -1312,7 +1312,7 @@ function drawSticker(ctx, W, H, showWatermark, watermarkText) {
   if (hasCaption) {
     const lowestBottom = positions.reduce((max, pos) => Math.max(max, pos.topY + pos.GH), 0);
     const safeBottom = H - Math.max(16, Math.round(H * 0.035));
-    const captionBaseY = Math.min(safeBottom, lowestBottom + Math.round(H * 0.035));
+    const captionBaseY = Math.min(safeBottom - Math.round(H * 0.04), lowestBottom + Math.round(H * 0.025));
 
     ctx.save();
     ctx.font=`bold ${Math.round(H*0.05)}px "Permanent Marker",cursive`;
@@ -1859,9 +1859,16 @@ function resetAll() {
 
 function exportStickerImage() {
   const size = document.getElementById('fSize')?.value || "6";
-
+  
+  const W = 3300;   // width (11" at 300 DPI)
+  const H = 2550;   // height (8.5" at 300 DPI)
   let width = 1500;
   let height = 1200;
+
+  const margin = 200;
+
+  const usableW = W - (margin * 2);
+  const usableH = H - (margin * 2);
 
   if (size === "6") {
   width = 1500;
