@@ -63,6 +63,11 @@ window.GUITAR_CATALOG = [
         "name": "White",
         "image": "images/guitars/lp_white.png"
       },
+            {
+        "id": "lh_sunburst",
+        "name": "Sunburst",
+        "image": "images/guitars/lh_sunburst.png"
+      },
       {
         "id": "lp_white_ii",
         "name": "White II",
@@ -119,6 +124,41 @@ window.GUITAR_CATALOG = [
         "image": "images/guitars/exp_white.png"
       }
     ]
+  },
+  {
+    "category": "ESS Style",
+    "guitars": [
+      {
+        "id": "ess_black",
+        "name": "Black",
+        "image": "images/guitars/ess_black.png"
+      },
+      {
+        "id": "ess_cherry",
+        "name": "Cherry",
+        "image": "images/guitars/ess_cherry.png"
+      },
+      {
+        "id": "ess_black",
+        "name": "Black",
+        "image": "images/guitars/ess_black.png"
+      },
+      {
+        "id": "ess_brown",
+        "name": "Brown",
+        "image": "images/guitars/ess_brown.png"
+      },
+      {
+        "id": "ess_tan",
+        "name": "Tan",
+        "image": "images/guitars/ess_tan.png"
+      },
+      {
+        "id": "ess_gold",
+        "name": "Gold",
+        "image": "images/guitars/ess_gold.png"
+      },
+      ]
   },
   {
     "category": "PRS Style",
@@ -299,6 +339,16 @@ window.GUITAR_CATALOG = [
         "image": "images/guitars/strat_sunburst.png"
       },
       {
+        "id": "strat_pewter",
+        "name": "Pewter",
+        "image": "images/strat_pewter.png",
+      },
+       {
+        "id": "strat_baby_blue",
+        "name": "Baby Blue",
+        "image": "images/strat_byblue.png",
+      },
+      {
         "id": "strat_white_tortoise",
         "name": "White Tortoise",
         "image": "images/guitars/strat_white_tortoise.png"
@@ -379,6 +429,11 @@ window.GUITAR_CATALOG = [
         "image": "images/guitars/tele_white.png"
       },
       {
+        "id": "tele_sunburst_white_guard",
+        "name": "Sunburst White",
+        "image": "images/tele_sunburst_white.png"
+      },
+      {
         "id": "tele_white_face",
         "name": "White Face",
         "image": "images/guitars/tele_white_face.png"
@@ -429,7 +484,17 @@ window.GUITAR_CATALOG = [
         "image": "images/guitars/v_white.png"
       }
     ]
-  },
+   },
+   {
+    "category": "Other Styles",
+    "guitars": [
+      {
+        "id": "cv_black",
+        "name": "Black",
+        "image": "images/guitars/cv_black"
+      }
+    ]
+  }
   {
     "category": "MRTN Style",
     "guitars": [
