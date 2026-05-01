@@ -1684,7 +1684,14 @@ function updateSizeTier() {
   if (!sizeSel || !note) return;
 
   const recommended = getRecommendedSizeValue(count || 1);
-  sizeSel.value = recommended;
+
+  [...sizeSel.options].forEach(opt => {
+    opt.disabled = parseInt(opt.value, 10) < parseInt(recommended, 10);
+  });
+
+  if (parseInt(sizeSel.value, 10) < parseInt(recommended, 10)) {
+    sizeSel.value = recommended;
+  }
 
   const optionMeta = {
     '6': { label: 'Small / 6"', range: 'up to 5 guitars' },
@@ -1696,9 +1703,8 @@ function updateSizeTier() {
 
   note.textContent = count === 0
     ? 'Small / 6" recommended for up to 5 guitars.'
-    : `${meta.label} is recommended for ${meta.range}.`;
+    : `${meta.label} minimum is required for ${meta.range}.`;
 }
-
 function handleSizeChange() {
   calcPrice();
 }

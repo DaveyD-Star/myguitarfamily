@@ -12,20 +12,32 @@ exports.handler = async function (event) {
     const stickerType = data.stickerType || 'standard';
     const stickerImageUrl = data.stickerImageUrl || "";
 
+    let finalStickerSize = stickerSize;
+
+    const guitarCount = guitars.length;
+
+    if (guitarCount >= 12 && parseInt(finalStickerSize, 10) < 12) {
+      finalStickerSize = "12";
+    } else if (guitarCount >= 6 && parseInt(finalStickerSize, 10) < 9) {
+      finalStickerSize = "9";
+    } else if (parseInt(finalStickerSize, 10) < 6) {
+      finalStickerSize = "6";
+    }
+   
     let basePrice = 2999;
 
-    if (stickerSize === "6") basePrice = 2999;
-    if (stickerSize === "9") basePrice = 3499;
-    if (stickerSize === "12") basePrice = 3999;
+    if (finalStickerSize === "6") basePrice = 2999;
+    if (finalStickerSize === "9") basePrice = 3499;
+    if (finalStickerSize === "12") basePrice = 3999;
 
     if (stickerType === "inside-window") basePrice += 500;
-    
-    let discount = 0;
 
+    const digitalPremium = (hasDigital === true || hasDigital === "true") ? 500 : 0;
+
+    let discount = 0;
     if (stickerQuantity === 2) discount = 750;
     if (stickerQuantity === 3) discount = 1500;
 
-    const digitalPremium = (hasDigital === true || hasDigital === "true") ? 500 : 0;
     const totalAmount = (basePrice * stickerQuantity) - discount + digitalPremium;
     
     const session = await stripe.checkout.sessions.create({
@@ -47,7 +59,7 @@ exports.handler = async function (event) {
       metadata: {
         guitars: JSON.stringify(guitars).replace(/"/g, "'").slice(0, 500),
         caption: (caption || '').replace(/"/g, "'").slice(0, 500),
-        stickerSize: stickerSize.toString(),
+        stickerSize: finalStickerSize.toString(),
         stickerQuantity: stickerQuantity.toString(),
         hasDigital: hasDigital.toString(),
         stickerImageUrl: stickerImageUrl,
