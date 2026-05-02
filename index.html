@@ -785,7 +785,7 @@ button.disabled {
 }
 
 .preview-col .price-row {
-  display: flex !important;
+  display: flex;
   justify-content: space-between !important;
   align-items: center !important;
   gap: 12px !important;
@@ -867,24 +867,13 @@ button.disabled {
 }
 
 .pricing-card > div {
-  display: flex !important;
+  display: flex;
   justify-content: space-between !important;
   align-items: center !important;
   gap: 12px !important;
   margin: 8px 0 !important;
   font-size: 15px !important;
   line-height: 1.25 !important;
-}
-
-.pricing-card > div span:first-child {
-  flex: 1 !important;
-  min-width: 0 !important;
-}
-
-.pricing-card > div span:last-child {
-  flex-shrink: 0 !important;
-  text-align: right !important;
-  font-weight: 500 !important;
 }
 
 .pricing-card > div.total,
@@ -1624,7 +1613,10 @@ function renderPreview() {
   }
 
   drawSticker(ctx, W, H, true, 'PREVIEW');
-  if (document.getElementById('lightbox').classList.contains('open')) renderLightbox();
+  const lightbox = document.getElementById('lightbox');
+  if (lightbox && lightbox.classList.contains('open')) {
+    renderLightbox();
+  }
 }
 
 // ══════════════════════════════════════════════
@@ -1634,10 +1626,18 @@ const LB_W=600, LB_H=480;
 
 function openLightbox() {
   if (guitars.length===0) return;
-  document.getElementById('lightbox').classList.add('open');
+ const lightbox = document.getElementById('lightbox');
+  if (lightbox && lightbox.classList.contains('open')) {
+    renderLightbox();
+  }
   renderLightbox();
 }
-function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+function closeLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  if (lightbox) {
+    lightbox.classList.remove('open');
+  }
+}
 function lbClickOut(e) { if(e.target===document.getElementById('lightbox')) closeLightbox(); }
 
 function renderLightbox() {
@@ -1729,16 +1729,23 @@ function animatePreviewAdd(guitarId) {
 
   if (previewAnimRaf) cancelAnimationFrame(previewAnimRaf);
 
+  const renderLightboxIfOpen = () => {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox && lightbox.classList.contains('open')) {
+      renderLightbox();
+    }
+  };
+
   const tick = () => {
     renderPreview();
-    if (document.getElementById('lightbox').classList.contains('open')) renderLightbox();
+    renderLightboxIfOpen();
 
     if (performance.now() < lastAddAnimUntil) {
       previewAnimRaf = requestAnimationFrame(tick);
     } else {
       previewAnimRaf = null;
       renderPreview();
-      if (document.getElementById('lightbox').classList.contains('open')) renderLightbox();
+      renderLightboxIfOpen();
     }
   };
 
@@ -1963,7 +1970,7 @@ function calcPrice() {
   const size = document.getElementById('fSize')?.value || '6';
   const qty = parseInt(document.getElementById('fQty')?.value || '1');
   const disc = qty === 2 ? 7.50 : qty === 3 ? 15.00 : 0;
-const dl = dlAddon ? 5.00 : 0;
+  const dl = dlAddon ? 5.00 : 0;
 
 const dlRow = document.getElementById('pDlRow');
 if (dlRow) {
