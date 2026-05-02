@@ -1289,6 +1289,17 @@ button.disabled {
   </div>
 </div>
 
+<!-- ═══ LIGHTBOX ═══ -->
+<div class="lightbox" id="lightbox" onclick="lbClickOut(event)">
+  <div class="lb-inner">
+    <button class="lb-close" onclick="closeLightbox()">✕</button>
+    <div class="lb-frame">
+      <canvas id="lbCanvas" width="600" height="480"></canvas>
+    </div>
+    <div class="lb-hint">Tap outside or ✕ to close</div>
+  </div>
+</div>
+
 <!-- ═══ TOAST ═══ -->
 <div class="toast" id="toast">
   <span id="toastMsg"></span>
@@ -1625,11 +1636,12 @@ function renderPreview() {
 const LB_W=600, LB_H=480;
 
 function openLightbox() {
-  if (guitars.length===0) return;
- const lightbox = document.getElementById('lightbox');
-  if (lightbox && lightbox.classList.contains('open')) {
-    renderLightbox();
-  }
+  if (guitars.length === 0) return;
+
+  const lightbox = document.getElementById('lightbox');
+  if (!lightbox) return;
+
+  lightbox.classList.add('open');
   renderLightbox();
 }
 function closeLightbox() {
@@ -1638,21 +1650,28 @@ function closeLightbox() {
     lightbox.classList.remove('open');
   }
 }
-function lbClickOut(e) { if(e.target===document.getElementById('lightbox')) closeLightbox(); }
-
 function renderLightbox() {
-  const canvas=document.getElementById('lbCanvas');
-  canvas.width=LB_W; canvas.height=LB_H;
-  const ctx=canvas.getContext('2d');
+  const canvas = document.getElementById('lbCanvas');
+  if (!canvas) return;
 
-  let allLoaded=true;
-  guitars.forEach(g=>{if(!getImg(g.key).complete||!getImg(g.key).naturalHeight) allLoaded=false;});
-  if(!allLoaded){
-    Promise.all(guitars.map(g=>new Promise(res=>{
-      const im=getImg(g.key);
-      if(im.complete&&im.naturalHeight) res(); else{im.onload=res;im.onerror=res;}
-    }))).then(()=>renderLightbox()); return;
+  canvas.width = LB_W;
+  canvas.height = LB_H;
+  const ctx = canvas.getContext('2d');
+
+  let allLoaded = true;
+  guitars.forEach(g => {
+    if (!getImg(g.key).complete || !getImg(g.key).naturalHeight) allLoaded = false;
+  });
+
+  if (!allLoaded) {
+    Promise.all(guitars.map(g => new Promise(res => {
+      const im = getImg(g.key);
+      if (im.complete && im.naturalHeight) res();
+      else { im.onload = res; im.onerror = res; }
+    }))).then(() => renderLightbox());
+    return;
   }
+
   drawSticker(ctx, LB_W, LB_H, true, 'G-Family');
 }
 
